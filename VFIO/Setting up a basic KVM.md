@@ -22,6 +22,16 @@ Driver: snd\_hda\_intel
 ```
 copy it and save it somewhere. 
 
+add modprobe module:<br>
+`sudo nano /etc/modprobe.d/vfio.conf`
+in vfio.conf add:<br>
+```
+options vfio-pci ids=1002:67ff,1002:aae0
+options vfio-pci disable_idle_d3=1
+options vfio-pci disable_vga=1
+```
+*ids should be your pci parts ids with `,` in between*
+
 
 **Install required packages**<br>
 `sudo pacman -S qemu libvirt edk2-ovmf virt-manager dnsmasq ebtables iptables bridge-utils`
