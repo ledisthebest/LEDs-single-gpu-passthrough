@@ -16,7 +16,7 @@ My current setup is on Ryzen CPU with Radeon GPU, and sorry my English is not th
 
 * * *
 **Procedure:**
-1. [Setting up an basic KVM on linux without VFIO](../VFIO/Setting%20up%20a%20basic%20KVM.md)
+1. [Setting up an basic KVM on linux without VFIO](/VFIO/Setting%20up%20a%20basic%20KVM.md)
 2. [Libvirt Hooks and Scripts](/VFIO/Libvirt%20Hooks.md)
 3. [QEMU+Libvirt Configuration](/VFIO/Configure%20Libvirt.md)
 4. [GPU passthrough](/VFIO/Setting%20up%20Passthrough.md)
