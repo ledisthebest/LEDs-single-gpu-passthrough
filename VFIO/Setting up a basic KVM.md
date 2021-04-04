@@ -22,8 +22,8 @@ Driver: snd\_hda\_intel
 ```
 copy it and save it somewhere. 
 
-add modprobe module:<br>
-`sudo nano /etc/modprobe.d/vfio.conf`
+**add modprobe module:**<br>
+`sudo nano /etc/modprobe.d/vfio.conf`<br>
 in vfio.conf add:<br>
 ```
 options vfio-pci ids=1002:67ff,1002:aae0
