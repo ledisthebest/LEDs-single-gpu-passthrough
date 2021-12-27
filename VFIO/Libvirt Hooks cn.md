@@ -1,4 +1,6 @@
 # 配置Libvirt脚本
+[英伟达显卡请看这里](libvirt_hooks_nvidia-cn.md)
+
 在Libirt里面创建一个hooks文件夹<br>
 `sudo mkdir /etc/libvirt/hooks`
 
