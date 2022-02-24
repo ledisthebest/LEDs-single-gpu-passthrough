@@ -2,7 +2,7 @@
 translationKey: vfio-single
 title: "单显卡直通教程"
 date: 2022-02-15T00:00:00-07:00
-# weight: 1
+weight: 1
 # aliases: ["/first"]
 tags: ["cn", "linux", "arch", "VFIO", "KVM", "虚拟化"]
 author: "ledisthebest"
@@ -44,10 +44,11 @@ editPost:
 - [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCKXFTVfYRA8Ho71bAT5tfVA?style=social)](https://www.youtube.com/channel/UCKXFTVfYRA8Ho71bAT5tfVA?sub_confirmation=1)
 
 或者加入我们的QQ群：`689962825`
+![QQ](/img/0x0B-single-gpu-passthrough/qq-group.png)
 
 ---
 
-## 更新日期：2022年02月23日
+## 更新日期：2022年02月15日
 
 - 增加了图片
 - 更改配置
@@ -55,23 +56,13 @@ editPost:
 
 ---
 
-## 教程使用的电脑配置
+## 电脑配置
 - 处理器: AMD 锐龙 5800x 8核
 - 显卡: 微星 GeForce RTX 3070 GAMING X TRIO 8G
-- 主版：玩家国度 ROG Strix B550-A GAMING White 吹雪
+- 主版：玩家国度 ROG Strix B550-A GAMING 吹雪
 - 内存: 16GB 3600Mhz 双通道
 - 系统: Arch Linux 5.16
 - 桌面环境: KDE Plasma 5.23 X11
-
-## ！！要求！！
-- 一个四核或更多的AMD64或英特尔x86-64处理器，支持硬件虚拟化。
-- 8GB双通道内存或者更多， 不然不够分给客户机。
-- 64GB固态盘空间或更多（macOS至少需要64GB，不然不允许安装）。
-- 一块独立显卡，至少支持DirectX 11
-- 核显/集显不建议，成功率较低，而且直通和不直通比没有太大的性能差异，如果想尝试参见[Intel GVT-g](https://wiki.archlinux.org/title/Intel_GVT-g)。
-- 大部分在Big Navi之前的AMD显卡有重置Reset Bug, 可使用[vendor-reset](https://github.com/gnif/vendor-reset)修复。
-- 若想使用macOS客户机，请使用AMD显卡（英伟达支持就是个笑话），及英特尔处理器（AMD处理器没有苹果官方支持，会有bug）。
-- 发行版不一定要用Arch系的，不过不同发行版个别命令可能会不太一样，建议使用一个较新的发行版，不然内核的KVM会太低。
 
 ---
 
@@ -86,17 +77,20 @@ editPost:
 
 # 配置一个简单的KVM
 
-**启用IOMMU**<br>
-比如Systemd启动器：<br>
-`nano /boot/loader/entries/arch.conf`<br>
-把 `amd_iommu=on iommu=pt` 添加到options后面<br>
-保存，重启系统
+## 启用IOMMU
+1. 重启进入UEFI/BIOS固件设置，开启IOMMU和虚拟化。通常在CPU高级选项里面，AMD处理器的一般叫Virtualization Technology或AMD-Vi，英特尔的叫VT-x或VT-d。
+2. 添加下列内核参数到启动器，[详情戳这里](https://wiki.archlinux.org/title/Kernel_parameters_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))，保存然后重启。
+    - AMD处理器(根据BIOS设置默认已启用？)：`amd_iommu=on`
+    - 英特尔处理器：`intel_iommu=on`
+    - 可选（修复或导致黑屏）：`iommu=pt`
 
-**检查IOMMU是否已启用**<br>
-`sudo dmesg | grep -e DMAR -e IOMMU`<br>
-找找有没有amd_IOMMU:Detected"
+3. 重启后，看看启动日志检查一下IOMMU是否已启用，使用管理员权限运行 
+```
+dmesg | grep -e DMAR -e IOMMU
+```
+找找有没有 `amd_IOMMU:Detected` 或者 `Intel-IOMMU: enabled` 类似的信息。
 
-**检查IOMMU组是否有效**<br>
+# 检查IOMMU组是否有效
 [iommuamd.sh](../resources/iommuamd.sh)
 运行这个脚本，看看显卡是不是在自己的一个组里面。
 ```
