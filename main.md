@@ -44,11 +44,10 @@ editPost:
 - [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCKXFTVfYRA8Ho71bAT5tfVA?style=social)](https://www.youtube.com/channel/UCKXFTVfYRA8Ho71bAT5tfVA?sub_confirmation=1)
 
 或者加入我们的QQ群：`689962825`
-![QQ](/img/0x0B-single-gpu-passthrough/qq-group.png)
 
 ---
 
-## 更新日期：2022年02月15日
+## 更新日期：2022年02月24日
 
 - 增加了图片
 - 更改配置
@@ -59,10 +58,22 @@ editPost:
 ## 电脑配置
 - 处理器: AMD 锐龙 5800x 8核
 - 显卡: 微星 GeForce RTX 3070 GAMING X TRIO 8G
-- 主版：玩家国度 ROG Strix B550-A GAMING 吹雪
+- 主版：玩家国度 ROG Strix B550-A GAMING White 吹雪
 - 内存: 16GB 3600Mhz 双通道
 - 系统: Arch Linux 5.16
 - 桌面环境: KDE Plasma 5.23 X11
+
+---
+
+## ！！要求！！
+- 一个四核或更多的AMD64或英特尔x86-64处理器，支持硬件虚拟化。
+- 8GB双通道内存或者更多， 不然不够分给客户机。
+- 64GB固态盘空间或更多（macOS至少需要64GB，不然不允许安装）。
+- 一块独立显卡，至少支持DirectX 11
+- 核显/集显不建议，成功率较低，而且直通和不直通比没有太大的性能差异，如果想尝试参见[Intel GVT-g](https://wiki.archlinux.org/title/Intel_GVT-g)。
+- 大部分在Big Navi之前的AMD显卡有重置Reset Bug, 可使用[vendor-reset](https://github.com/gnif/vendor-reset)修复。
+- 若想使用macOS客户机，请使用AMD显卡（英伟达支持就是个笑话），及英特尔处理器（AMD处理器没有苹果官方支持，会有bug）。
+- 发行版不一定要用Arch系的，不过不同发行版个别命令可能会不太一样，建议使用一个较新的发行版，不然内核的KVM会太低。
 
 ---
 
