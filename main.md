@@ -9,7 +9,7 @@ author: "ledisthebest"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: true
-draft: true
+draft: false
 hidemeta: false
 comments: false
 description: "传统艺能了"
@@ -82,17 +82,40 @@ editPost:
 2. 添加下列内核参数到启动器，[详情戳这里](https://wiki.archlinux.org/title/Kernel_parameters_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))，保存然后重启。
     - AMD处理器(根据BIOS设置默认已启用？)：`amd_iommu=on`
     - 英特尔处理器：`intel_iommu=on`
-    - 可选（修复或导致黑屏）：`iommu=pt`
+    - 可视情况添加（修复或导致黑屏）：`iommu=pt`
 
-3. 重启后，看看启动日志检查一下IOMMU是否已启用，使用管理员权限运行 
+[![kernel-parameters.jpg](/img/0x0B-single-gpu-passthrough/kernel-parameters.jpg "在GRUB里面添加内核参数")](/img/0x0B-single-gpu-passthrough/kernel-parameters.jpg)
+
+3. 重启后，看看启动日志检查一下IOMMU是否已启用，使用超级用户权限运行 
 ```
 dmesg | grep -e DMAR -e IOMMU
 ```
 找找有没有 `amd_IOMMU:Detected` 或者 `Intel-IOMMU: enabled` 类似的信息。
 
-# 检查IOMMU组是否有效
-[iommuamd.sh](../resources/iommuamd.sh)
-运行这个脚本，看看显卡是不是在自己的一个组里面。
+[![iommu-on.jpg](/img/0x0B-single-gpu-passthrough/iommu-on.jpg "IOMMU已启用")](/img/0x0B-single-gpu-passthrough/iommu-on.jpg)
+
+---
+
+## 检查IOMMU组是否有效
+用超级用户运行这串代码（来自[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)），**或者** 可以运行[这个脚本](/files/0x0B-single-gpu-passthrough/iommu.sh)（更好看一点）
+
+**小贴士：不要随便运行那些你不懂的代码!**
+
+```
+shopt -s nullglob
+for g in `find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V`; do
+    echo "IOMMU Group ${g##*/}:"
+    for d in $g/devices/*; do
+        echo -e "\t$(lspci -nns ${d##*/})"
+    done;
+done;
+```
+
+，
+看看显卡是不是在自己的一个组里面。
+
+[![iommu-groups.jpg](/img/0x0B-single-gpu-passthrough/iommu-groups.jpg "我的IOMMU组")](/img/0x0B-single-gpu-passthrough/iommu-groups.jpg)
+
 ```
 IOMMU group 16
 0a:00.0 VGA compatible controller \[0300\]: Advanced Micro Devices, Inc. \[AMD/ATI\] Baffin \[Radeon RX 550 640SP / RX 560/560X\] \[1002:67ff\] (rev cf)
