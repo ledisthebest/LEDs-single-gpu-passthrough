@@ -7,6 +7,9 @@ You might need to change a few things, and feel free to ask me if you have any q
 
 My current setup is on Ryzen CPU with Radeon GPU, and sorry my English is not the best.
 
+- [![Followers](https://bilistats.lonelyion.com/followers?uid=589560036)](https://space.bilibili.com/589560036/channel/seriesdetail?sid=2031728)
+- [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCKXFTVfYRA8Ho71bAT5tfVA?style=social)](https://www.youtube.com/channel/UCKXFTVfYRA8Ho71bAT5tfVA?sub_confirmation=1)
+
 **My Specs:**
 - CPU: AMD Ryzen 3900x 12 cores
 - GPU: MSI Radeon RX 560 4GT LP OC
