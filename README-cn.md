@@ -3,6 +3,10 @@
 
 这是我的单显卡直通配置过程;我在多个不同配置的电脑上都试过，这个方法都成功了。<br>
 如果有问题可以去B站上找我, 视频教程链接：*还没做完*https://space.bilibili.com/589560036 <br>
+
+- [![Followers](https://bilistats.lonelyion.com/followers?uid=589560036)](https://space.bilibili.com/589560036/channel/seriesdetail?sid=2031728)
+- [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCKXFTVfYRA8Ho71bAT5tfVA?style=social)](https://www.youtube.com/channel/UCKXFTVfYRA8Ho71bAT5tfVA?sub_confirmation=1)
+
 <br>
 我这里讲的是AMD处理器（英特尔的也差不多，个别参数会不一样）; 系统是Arch, 如果是其它发行版一些软件名和文件位置可能会不太一样。<br>
 
