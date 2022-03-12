@@ -1,4 +1,7 @@
 # Single GPU Passthrough on Ryzen CPU
+
+https://liucreator.gitlab.io/zh/posts/0x0b-single-gpu-passthrough/main/
+
 [中文版本](README-cn.md)<br>
 These are my steps to set up QEMU/KVM with GPU passthrough as of 2021 March, 
 it works for me as I tried many times on different systems.
