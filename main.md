@@ -1,7 +1,7 @@
 ---
 translationKey: vfio-single
 title: "单显卡直通教程"
-date: 2022-02-15T00:00:00-07:00
+date: 2022-02-15T09:00:00-07:00
 weight: 1
 # aliases: ["/first"]
 tags: ["cn", "linux", "arch", "VFIO", "KVM", "虚拟化"]
@@ -44,10 +44,6 @@ editPost:
 - [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCKXFTVfYRA8Ho71bAT5tfVA?style=social)](https://www.youtube.com/channel/UCKXFTVfYRA8Ho71bAT5tfVA?sub_confirmation=1)
 
 或者加入我们的QQ群：`689962825`
-
-如果你觉得这些教程有用，想支持我的话，可以选择在在微信上给我打赏（标注VFIO），非常感谢！
-
-![](/img/wechatpay.jpg)
 
 ---
 
@@ -245,6 +241,10 @@ virsh net-autostart default
 ---
 
 还在编辑中，[请帮帮我](https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md)！
+
+本人是一名半工半读的学生，如果你觉得这些教程有用，想支持我的话，可以选择在在微信上给我打赏（标注VFIO），非常感谢！
+
+![](/img/wechatpay.jpg)
 
 ---
 
