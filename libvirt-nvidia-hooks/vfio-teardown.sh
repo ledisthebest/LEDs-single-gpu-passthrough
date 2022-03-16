@@ -14,15 +14,14 @@ echo 1 > /etc/class/vtconsole/vtcon1/bind
 
 echo efi-framebuffer.0 > /sys/bus/platform/drivers/efi-framebuffer/bind
 
-modprobe  nvidia
-modprobe  nvidia_modeset
-modprobe  nvidia_uvm
-modprobe  nvidia_drm
-modprobe  drm_kms_helper
-modprobe  i2c_nvidia_gpu
-modprobe  drm
+modprobe nvidia
+modprobe nvidia_modeset
+modprobe nvidia_uvm
+modprobe nvidia_drm
+modprobe drm_kms_helper
+modprobe i2c_nvidia_gpu
+modprobe drm
 
-modprobe 
 sleep 10
 
 systemctl start your-display-manager
