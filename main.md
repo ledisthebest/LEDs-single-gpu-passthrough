@@ -13,7 +13,7 @@ draft: false
 hidemeta: false
 comments: false
 description: "传统艺能了"
-canonicalURL: "https://liucreator.gitlab.io/zh/posts/0x0b-single-gpu-passthrough/readme-cn/"
+canonicalURL: "https://liucreator.gitlab.io/zh/posts/0x0b-single-gpu-passthrough/main/"
 disableHLJS: false # to disable highlightjs
 disableShare: false
 hideSummary: false
@@ -29,9 +29,9 @@ cover:
     relative: false # when using page bundles set this to true
     hidden: false # only hide on current single page
 editPost:
-    URL: "https://gitlab.com/liucreator/liucreator.gitlab.io/-/blob/master/content"
+    URL: "https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md"
     Text: "改进建议" # edit text
-    appendFilePath: true # to append file path to Edit link
+    appendFilePath: false # to append file path to Edit link
 ---
 
 # 介绍
@@ -74,6 +74,7 @@ editPost:
 - 大部分在Big Navi之前的AMD显卡有重置Reset Bug, 可使用[vendor-reset](https://github.com/gnif/vendor-reset)修复。
 - 若想使用macOS客户机，请使用AMD显卡（英伟达支持就是个笑话），及英特尔处理器（AMD处理器没有苹果官方支持，会有bug）。
 - 发行版不一定要用Arch系的，不过不同发行版个别命令可能会不太一样，建议使用一个较新的发行版，不然内核的KVM会太低。
+- 笔记本不建议，硬件较为封闭，跟常规桌面端不太一样。
 
 ---
 
@@ -95,7 +96,7 @@ editPost:
     - 英特尔处理器：`intel_iommu=on`
     - 可视情况添加（修复或导致黑屏）：`iommu=pt`
 
-[![kernel-parameters.jpg](/img/0x0B-single-gpu-passthrough/kernel-parameters.jpg "在GRUB里面添加内核参数")](/img/0x0B-single-gpu-passthrough/kernel-parameters.jpg)
+![](/img/0x0B-single-gpu-passthrough/kernel-parameters.png "在GRUB里面添加内核参数")
 
 3. 重启后，看看启动日志检查一下IOMMU是否已启用，使用超级用户权限运行 
 ```
@@ -103,7 +104,7 @@ dmesg | grep -e DMAR -e IOMMU
 ```
 找找有没有 `amd_IOMMU:Detected` 或者 `Intel-IOMMU: enabled` 类似的信息。
 
-[![iommu-on.jpg](/img/0x0B-single-gpu-passthrough/iommu-on.jpg "IOMMU已启用")](/img/0x0B-single-gpu-passthrough/iommu-on.jpg)
+![](/img/0x0B-single-gpu-passthrough/iommu-on.png "IOMMU已启用")
 
 ---
 
@@ -125,21 +126,23 @@ done;
 ，
 看看显卡是不是在自己的一个组里面。
 
-[![iommu-groups.jpg](/img/0x0B-single-gpu-passthrough/iommu-groups.jpg "我的IOMMU组")](/img/0x0B-single-gpu-passthrough/iommu-groups.jpg)
+![](/img/0x0B-single-gpu-passthrough/iommu-groups.png "我的IOMMU组")
 
 ```
 IOMMU group 16
-0a:00.0 VGA compatible controller \[0300\]: Advanced Micro Devices, Inc. \[AMD/ATI\] Baffin \[Radeon RX 550 640SP / RX 560/560X\] \[1002:67ff\] (rev cf)
+0a:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin [Radeon RX 550 640SP / RX 560/560X] [1002:67ff] (rev cf)
 Driver: amdgpu
-0a:00.1 Audio device \[0403\]: Advanced Micro Devices, Inc. \[AMD/ATI\] Baffin HDMI/DP Audio \[Radeon RX 550 640SP / RX 560/560X\] \[1002:aae0\]
-Driver: snd\_hda\_intel
+0a:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin HDMI/DP Audio [Radeon RX 550 640SP / RX 560/560X] [1002:aae0]
+Driver: snd_hda_intel
 
 ```
 复制一下，先保存下来。
 
-**添加VFIO到内核模块**<br>
-`sudo nano /etc/modprobe.d/vfio.conf`<br>
-在vfio.conf里面添加<br>
+---
+
+## 添加VFIO到内核模块
+
+新建并打开`/etc/modprobe.d/vfio.conf`，在里面添加：
 ```
 options vfio-pci ids=1002:67ff,1002:aae0
 options vfio-pci disable_idle_d3=1
@@ -147,38 +150,100 @@ options vfio-pci disable_vga=1
 ```
 *ids=后面应该是刚才查看的显卡的那些id,每个值之间用`,`隔开*
 
+![](/img/0x0B-single-gpu-passthrough/vfio-conf.png "编辑vfio.conf")
 
-**安装需要的软件<br>
-`sudo pacman -S qemu libvirt edk2-ovmf virt-manager dnsmasq ebtables iptables bridge-utils`
+---
 
-**开机启用服务**<br>
+## 安装需要的组件
+如果是Arch系（除了Artix），安装下列包
 ```
-sudo systemctl enable libvirtd
-sudo systemctl enable virtlogd.socket
+qemu libvirt edk2-ovmf virt-manager dnsmasq ebtables iptables bridge-utils gnu-netcat
 ```
+**安装`iptables`和`ebtables`会询问是否要替换掉`iptables-nft`，`y`确定，因为目前QEMU尚未更新，还依赖于老的那些网络组件。**
 
-**开始Libvirt**<br>
-```
-"sudo systemctl start libvirtd"
-`sudo systemctl start virtlogd.socket
-```
+---
 
-**启用虚拟网络**<br>
+## 启用服务
+
+### 启动Libvirtd：（Systemd）
 ```
-sudo virsh net-start default
-sudo virsh net-autostart default
+systemctl start libvirtd
 ```
 
-**先打开Virt-Manager安装一个没有直通的虚拟机，然后去下一步**
+#### 设为开机自启：
+```
+systemctl enable libvirtd
+```
 
-[教程主页](../README-cn.md)
+### 启动默认虚拟网络（NAT）
+```
+virsh net-start default
+```
 
+#### 设为开机自启：
+```
+virsh net-autostart default
+```
 
+现在可以打开虚拟机管理器，安装一个非直通的虚拟机了。
 
+---
 
+# 安装一个非直通的虚拟机
 
+*这里讲的是Windows 10，是个好的开始，建议弄完这个成功后再去尝试Windows 11或者macOS。*
 
-* * *
+## 下载镜像
+- Windows 10的正版镜像可以直接从[微软官网](https://www.microsoft.com/zh-cn/software-download/windows10ISO)下载，不过还是需要购买激活码。
+- （可选）为了提高性能，可以从[红帽网站](https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md)下载安装Virtio Windows驱动，支持Windows XP至Windows 11。（Linux客户机不需要，已经自带）
+
+将它们保存找的到的地方，最好放在`/Home`里面。
+
+---
+
+## 创建虚拟机
+1. QEMU/KVM -> 新建虚拟机 -> 本地安装介质，下一步
+2. 浏览并选择已下载的Windows 10安装镜像，下一步
+3. 客户机内存怎么分配都行，最好给宿主机留1/4的内存（比如8GB分6GB留2GB，16GB分12GB留4GB），CPU数可以待会儿改，下一步
+4. 默认为虚拟机启用存储（存储磁盘镜像建议放在`/Home`下面），下一步
+5. 设置客户机名称，默认是`win10`，可以改，不过以后需要修改脚本，
+
+    **！！选择在安装前自定义配置！！**
+
+## 基本客户机配置
+- 概况（**！！这个一定要现在设置好，不然以后就很难改了！！**）
+    - 芯片组：`Q35`
+    - 固件：`ovmf_code.fd`（不需要secboot和csm）
+
+- CPU数
+    - vCPU分配数，根据拓扑设置（套接字x核心x线程）
+    - 配置： 一般选择`host-model`或者`host-passthrough`（`host-passthrough`有时候可能会导致AMD处理器性能损耗严重？）
+    - 拓扑：
+        - 套接字（翻译错误？），插槽：几个处理器，大部分人就1个
+        - 核心：分配给客户机几个核心（正常一点，比如2核，4核，6核，8核等等），最少留给宿主机1/4的总核心数
+        - 线程：每个分配的核心有几个线程（根据你实体的处理器来，如果有超线程就设2，没有设1）
+
+- 引导选项
+    - 选择`SATA CDROM 1`（Windows 10的安装镜像）
+
+- SATA 磁盘 1（客户机的存储空间）
+    - （可选，理论上提升磁盘性能%300）把`SATA`改成`VirtIO`
+
+- NIC（客户机网络）
+    - 网络源：`默认NAT`就行（可根据个人需求设置桥接网络，不要使用`macvtap`
+    - 设备型号：可以改成VirtIO提高性能（需要安装VirtIO驱动）
+    - IP地址：第一次启动后会自动生成
+
+然后选择 添加硬件 -> 存储 -> 选择或添加自定义存储，浏览并添加已下载的Virtio win驱动镜像，设备类型改成`CDROM设备`
+
+最后检查一下，开机安装Windows就行了！
+
+---
+
+还在编辑中，[请帮帮我](https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md)！
+
+---
+
 **其它资源**
 - Arch Wiki [PCI passthrough](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF) 
 - GitLab [RisingPrismTV's script](https://gitlab.com/risingprismtv/single-gpu-passthrough)
