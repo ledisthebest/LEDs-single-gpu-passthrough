@@ -30,6 +30,15 @@ My current setup is on Ryzen CPU with Radeon GPU, and sorry my English is not th
 5. [some other things](/VFIO/Debugging%20and%20other%20features.md)
 
 * * *
+
+---
+
+Please considering of supporting me if you find my guides or videos helpful!
+
+[![Paypal](https://www.paypal.com/en_US/i/scr/pixel.gif)](https://www.paypal.com/donate/?hosted_button_id=A47HPSXTPD5HE)
+
+---
+
 **Credits:**
 - Arch Wiki [PCI passthrough](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF) 
 - GitLab [RisingPrismTV's script](https://gitlab.com/risingprismtv/single-gpu-passthrough)

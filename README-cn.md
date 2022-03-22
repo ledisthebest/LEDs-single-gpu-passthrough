@@ -33,9 +33,15 @@
 
 ---
 
-还在编辑中，请考虑帮我添加更多内容！
+还在编辑中，请考虑帮我更新添加更多内容！
 
-本人是一名半工半读的学生，如果你觉得这些教程有用，想支持我的话，可以选择在在微信上给我打赏（标注VFIO），非常感谢！
+本人是一名半工半读的学生，如果你觉得我的视频和这些教程有用，请支持我！
+
+可以通过Paypal捐赠：
+
+[![Paypal](https://www.paypal.com/zh_C2/i/scr/pixel.gif)](https://www.paypal.com/donate/?hosted_button_id=HVU7NRQMZGMNN)
+
+或者可以选择在在微信上给我打赏（标注VFIO），非常感谢！
 
 ![微信支付码](resources/wechatpay.jpg)
 
