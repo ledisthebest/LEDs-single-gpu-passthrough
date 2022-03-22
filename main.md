@@ -45,6 +45,23 @@ editPost:
 
 或者加入我们的QQ群：`689962825`
 
+还在编辑中，如果能力，[请帮我更新、修改、添加更多内容](https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md)！
+
+本人是一名半工半读的学生，如果你觉得我的视频和教程有用，请考虑支持我！
+可以通过[Paypal](https://www.paypal.com/donate/?hosted_button_id=HVU7NRQMZGMNN)给我捐赠：
+
+{{< embedhtml>}}
+<form action="https://www.paypal.com/donate" method="post" target="_top">
+<input type="hidden" name="hosted_button_id" value="HVU7NRQMZGMNN" />
+<input type="image" src="https://www.paypalobjects.com/zh_XC/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="使用PayPal按钮进行捐赠" />
+<img alt="" border="0" src="https://www.paypal.com/zh_C2/i/scr/pixel.gif" width="1" height="1" />
+</form>
+
+{{< /embedhtml>}}
+
+或者选择在[微信](/img/wechatpay.jpg)上给我打赏（标注VFIO），非常感谢！
+
+
 ---
 
 ## 更新日期：2022年03月16日
@@ -239,10 +256,6 @@ virsh net-autostart default
 最后检查一下，开机安装Windows就行了！
 
 ---
-
-还在编辑中，[请帮帮我](https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md)！
-
-本人是一名半工半读的学生，如果你觉得这些教程有用，想支持我的话，可以选择在在微信上给我打赏（标注VFIO），非常感谢！
 
 ![](/img/wechatpay.jpg)
 
