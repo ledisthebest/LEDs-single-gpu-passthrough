@@ -39,7 +39,7 @@
 
 可以通过Paypal捐赠：
 
-[![Paypal](https://www.paypal.com/zh_C2/i/scr/pixel.gif)](https://www.paypal.com/donate/?hosted_button_id=HVU7NRQMZGMNN)
+[![Paypal](https://www.paypalobjects.com/zh_XC/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=HVU7NRQMZGMNN)
 
 或者可以选择在在微信上给我打赏（标注VFIO），非常感谢！
 

@@ -35,7 +35,7 @@ My current setup is on Ryzen CPU with Radeon GPU, and sorry my English is not th
 
 Please considering of supporting me if you find my guides or videos helpful!
 
-[![Paypal](https://www.paypal.com/en_US/i/scr/pixel.gif)](https://www.paypal.com/donate/?hosted_button_id=A47HPSXTPD5HE)
+[![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=A47HPSXTPD5HE)
 
 ---
 
