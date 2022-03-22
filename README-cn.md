@@ -31,7 +31,16 @@
 4. [显卡直通](VFIO/Setting%20up%20Passthrough%20cn.md)
 5. [some other things](VFIO/Debugging%20and%20other%20features.md)
 
-* * *
+---
+
+还在编辑中，请考虑帮我添加更多内容！
+
+本人是一名半工半读的学生，如果你觉得这些教程有用，想支持我的话，可以选择在在微信上给我打赏（标注VFIO），非常感谢！
+
+![微信支付码](resources/wechatpay.jpg)
+
+---
+
 **其它资源**
 - Arch Wiki [PCI passthrough](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF) 
 - GitLab [RisingPrismTV's script](https://gitlab.com/risingprismtv/single-gpu-passthrough)
