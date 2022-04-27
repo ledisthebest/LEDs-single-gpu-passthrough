@@ -11,7 +11,7 @@ showToc: true
 TocOpen: true
 draft: false
 hidemeta: false
-comments: false
+comments: true
 description: "传统艺能了"
 canonicalURL: "https://liucreator.gitlab.io/zh/posts/0x0b-single-gpu-passthrough/main/"
 disableHLJS: false # to disable highlightjs
@@ -45,7 +45,7 @@ editPost:
 
 或者加入我们的QQ群：`689962825`
 
-还在编辑中，如果能力，[请帮我更新、修改、添加更多内容](https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md)！
+还在编辑中，如果能力，[请帮我完善、修订、添加更多内容](https://gitlab.com/liucreator/LEDs-single-gpu-passthrough/-/blob/cn/main.md)！
 
 本人是一名半工半读的学生，如果你觉得我的视频和教程有用，请考虑支持我！
 可以通过[Paypal](https://www.paypal.com/donate/?hosted_button_id=HVU7NRQMZGMNN)给我捐赠：
@@ -64,11 +64,10 @@ editPost:
 
 ---
 
-## 更新日期：2022年03月16日
+## 更新日期：2022年04月26日
 
-- 增加了图片
-- 更改配置
 - 文档更新
+- 开启评论区
 
 ---
 
@@ -257,9 +256,6 @@ virsh net-autostart default
 
 ---
 
-![](/img/wechatpay.jpg)
-
----
 
 **其它资源**
 - Arch Wiki [PCI passthrough](https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF) 
